@@ -24,7 +24,7 @@ const { staticRoute, staticPath, distDir } = require('./config');
 const { User, Post, PostCategory, Comment } = require('./schema');
 
 const keystone = new Keystone({
-  name: 'Keystone Demo Blog',
+  name: 'Keystone Syllium Blog',
   adapter: mongooseAdapterInstance,
   onConnect: async () => {
     // Initialise some data.

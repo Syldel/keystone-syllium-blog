@@ -23,6 +23,9 @@ const Post = ({ post }) => {
           cursor: 'pointer',
           borderRadius: 6,
           overflow: 'hidden',
+          ':hover': {
+            textDecoration: 'none'
+          },
         }}
       >
         {post.image ? <img src={post.image.publicUrl} css={{ width: '100%' }} /> : null}
@@ -31,7 +34,7 @@ const Post = ({ post }) => {
           <section dangerouslySetInnerHTML={{ __html: post.body }} />
           <div css={{ marginTop: '1em', borderTop: '1px solid hsl(200, 20%, 80%)' }}>
             <p css={{ fontSize: '0.8em', marginBottom: 0, color: 'hsl(200, 20%, 50%)' }}>
-              Posted by {post.author ? post.author.name : 'someone'} on{' '}
+              Posté par {post.author ? post.author.name : 'someone'} le{' '}
               {format(post.posted, 'DD/MM/YYYY')}
             </p>
           </div>
@@ -45,15 +48,15 @@ export default () => (
   <Layout>
     <Header />
     <section css={{ margin: '48px 0' }}>
-      <h2>About</h2>
+      <h2>À propos</h2>
       <p>
-        This blog was created in KeystoneJS, a fantastic open source framework for developing
-        database-driven websites, applications and APIs in Node.js and GraphQL.
+        Ce blog est dédié à ma passion pour la photographie. J'ai envie de partager avec vous mes voyages, mes avis, mes expériences.
+        Bref, tout ce qui peut être intéressant dans le domaine de la photographie. J'espère que ça vous plaira.
       </p>
     </section>
 
     <section css={{ margin: '48px 0' }}>
-      <h2>Latest Posts</h2>
+      <h2>Les derniers articles</h2>
       <Query
         query={gql`
           {

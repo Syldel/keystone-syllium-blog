@@ -64,9 +64,9 @@ export default () => {
     <Layout>
       <div css={{ margin: '48px 0' }}>
         <Link href="/" passHref>
-          <a css={{ color: 'hsl(200,20%,50%)', cursor: 'pointer' }}>{'< Go Back'}</a>
+          <a css={{ color: 'hsl(200,20%,50%)', cursor: 'pointer' }}>{'< Accueil'}</a>
         </Link>
-        <h1>New Post</h1>
+        <h1>Nouvel Article</h1>
 
         {showBanner && (
           <div

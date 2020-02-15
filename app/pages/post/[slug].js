@@ -75,12 +75,12 @@ const ALL_QUERIES = gql`
 
 const imagePlaceholder = name => `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width="100" height="100">
 <rect width="100" height="100" fill="hsl(200,20%,50%)" />
-<text text-anchor="middle" x="50" y="67" fill="white" style="font-size: 50px; font-family: 'Rubik', sans-serif;">
+<text text-anchor="middle" x="50" y="67" fill="white" style="font-size: 50px; font-family: 'Lato', sans-serif;">
 ${name.charAt(0)}</text></svg>`;
 
 const Comments = ({ data }) => (
   <div>
-    <h2>Comments</h2>
+    <h2>Commentaires</h2>
     {data.allComments.length
       ? data.allComments.map(comment => (
           <div
@@ -108,7 +108,7 @@ const Comments = ({ data }) => (
                   margin: '8px 0',
                 }}
               >
-                {comment.author.name} on {format(comment.posted, 'DD MMM YYYY')}
+                {comment.author.name} le {format(comment.posted, 'DD MMM YYYY')}
               </p>
               <p css={{ margin: '8px 0' }}>{comment.body}</p>
             </div>
@@ -124,7 +124,7 @@ const AddComments = ({ users, post }) => {
 
   return (
     <div>
-      <h2>Add new Comment</h2>
+      <h2>Ajouter un nouveau commentaire</h2>
       <Mutation
         mutation={ADD_COMMENT}
         update={(cache, { data: data }) => {
@@ -163,7 +163,7 @@ const AddComments = ({ users, post }) => {
           >
             <textarea
               type="text"
-              placeholder="Write a comment"
+              placeholder="Votre commentaire"
               name="comment"
               css={{
                 padding: 12,
@@ -182,7 +182,7 @@ const AddComments = ({ users, post }) => {
 
             <input
               type="submit"
-              value="Submit"
+              value="Soumettre"
               css={{
                 padding: '6px 12px',
                 borderRadius: 6,
@@ -211,7 +211,7 @@ class PostPage extends React.Component {
         <Header />
         <div css={{ margin: '48px 0' }}>
           <Link href="/" passHref>
-            <a css={{ color: 'hsl(200,20%,50%)', cursor: 'pointer' }}>{'< Go Back'}</a>
+            <a css={{ color: 'hsl(200,20%,50%)', cursor: 'pointer' }}>{'< Accueil'}</a>
           </Link>
           <Query query={ALL_QUERIES} variables={{ slug }}>
             {({ data, loading, error }) => {
@@ -245,7 +245,7 @@ class PostPage extends React.Component {
                         <p
                           css={{ fontSize: '0.8em', marginBottom: 0, color: 'hsl(200, 20%, 50%)' }}
                         >
-                          Posted by {post.author ? post.author.name : 'someone'} on{' '}
+                          Posté par {post.author ? post.author.name : 'someone'} le{' '}
                           {format(post.posted, 'DD/MM/YYYY')}
                         </p>
                       </div>

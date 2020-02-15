@@ -12,7 +12,7 @@ const Layout = ({ children }) => (
           margin: 0,
           background: 'hsl(200, 20%, 90%)',
           color: 'hsl(200, 20%, 20%)',
-          fontFamily: "'Rubik', sans-serif",
+          fontFamily: "'Lato', sans-serif",
         },
         h2: {
           fontSize: '1em',
@@ -23,8 +23,8 @@ const Layout = ({ children }) => (
     />
     <Head>
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      <title>Keystone Blog</title>
-      <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet" />
+      <title>Syllium Blog Layout</title>
+      <link rel="stylesheet" type="text/css" href="../public/styles/bootstrap.min.css"></link>
     </Head>
     <div
       css={{
@@ -43,6 +43,7 @@ const Layout = ({ children }) => (
           color: 'hsl(200, 20%, 50%)',
         }}
       >
+        {/*
         Built with KeystoneJS.{' '}
         <a
           href="/admin"
@@ -56,6 +57,7 @@ const Layout = ({ children }) => (
           Go to Admin Console
         </a>
         .
+        */}
       </footer>
     </div>
   </>
