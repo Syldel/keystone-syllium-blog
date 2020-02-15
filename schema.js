@@ -13,7 +13,10 @@ const {
   CloudinaryImage,
 } = require('@keystonejs/fields');
 const { Wysiwyg } = require('@keystonejs/fields-wysiwyg-tinymce');
-const { LocalFileAdapter, CloudinaryAdapter } = require('@keystonejs/file-adapters');
+const {
+  //LocalFileAdapter,
+  CloudinaryAdapter
+} = require('@keystonejs/file-adapters');
 const getYear = require('date-fns/get_year');
 
 const { staticRoute, staticPath, distDir } = require('./config');
@@ -33,16 +36,23 @@ if (process.env.IFRAMELY_API_KEY) {
 //  path: `${staticRoute}/uploads`,
 //});
 
-const avatarFileAdapter = new LocalFileAdapter({
-  src: `${staticPath}/avatars`,
-  path: `${staticRoute}/avatars`,
-});
+//const avatarFileAdapter = new LocalFileAdapter({
+//  src: `${staticPath}/avatars`,
+//  path: `${staticRoute}/avatars`,
+//});
 
 const cloudinaryAdapter = new CloudinaryAdapter({
   cloudName: process.env.CLOUDINARY_CLOUD_NAME,
   apiKey: process.env.CLOUDINARY_KEY,
   apiSecret: process.env.CLOUDINARY_SECRET,
-  folder: 'keystone-syllium-blog',
+  folder: 'keystone-syllium-blog/post',
+});
+
+const avatarCloudinaryAdapter = new CloudinaryAdapter({
+  cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+  apiKey: process.env.CLOUDINARY_KEY,
+  apiSecret: process.env.CLOUDINARY_SECRET,
+  folder: 'keystone-syllium-blog/avatar',
 });
 
 exports.User = {
@@ -62,7 +72,8 @@ exports.User = {
       : {}),
     password: { type: Password },
     isAdmin: { type: Checkbox },
-    avatar: { type: File, adapter: avatarFileAdapter },
+    //avatar: { type: File, adapter: avatarFileAdapter },
+    avatar: { type: CloudinaryImage, adapter: avatarCloudinaryAdapter },
   },
   labelResolver: item => `${item.name} <${item.email}>`,
 };
