@@ -12,7 +12,16 @@ export default () => (
       margin: '48px 0',
     }}
   >
-    <p css={{ margin: 0, fontSize: '2em' }}>Syllium Photography Blog</p>
+    <Link href="/" passHref>
+      <a css={{
+        color: 'hsl(200, 20%, 50%)',
+        margin: 0,
+        fontSize: '2em',
+        ':hover': {
+          textDecoration: 'none'
+        },
+      }}>Syllium Photography Blog</a>
+    </Link>
     {/*
     <Link href="/post/new" passHref>
       <a css={{ color: 'hsl(200, 20%, 50%)', cursor: 'pointer' }}>+ Add Post</a>
