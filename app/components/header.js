@@ -7,15 +7,16 @@ export default () => (
   <header
     css={{
       display: 'flex',
-      justifyContent: 'space-between',
       alignItems: 'center',
       margin: '48px 0',
     }}
   >
+    <img src="public/images/syllium-diaph.svg" alt="logo" css={{width: '80px'}} />
     <Link href="/" passHref>
       <a css={{
         color: 'hsl(200, 20%, 50%)',
-        margin: 0,
+        margin: '0 0 0 1rem',
+        lineHeight: '2.2rem',
         fontSize: '2em',
         ':hover': {
           textDecoration: 'none'
