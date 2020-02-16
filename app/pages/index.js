@@ -12,6 +12,11 @@ import Header from '../components/header';
 /** @jsx jsx */
 
 const Post = ({ post }) => {
+
+  if (post && post.image && post.image.publicUrl) {
+    post.image.thumbnailUrl = String(post.image.publicUrl).replace('upload/', 'upload/w_288/');
+  }
+
   return (
     <Link href={`/post/[slug]?slug=${post.slug}`} as={`/post/${post.slug}`} passHref>
       <a
@@ -29,7 +34,7 @@ const Post = ({ post }) => {
         }}
       >
         <div className="row no-gutters">
-          {post.image ? <img src={post.image.publicUrl} css={{ width: '100%' }} className="col-sm-4" /> : <div css={{ backgroundColor: '#999' }} className="col-sm-4"></div>}
+          {post.image ? <img src={post.image.thumbnailUrl} css={{ width: '100%' }} className="col-sm-4" /> : <div css={{ backgroundColor: '#999' }} className="col-sm-4"></div>}
           <div className="col-sm-8">
             <article css={{ padding: '1em' }} >
               <h3 css={{ marginTop: 0 }}>{post.title}</h3>

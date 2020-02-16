@@ -222,6 +222,10 @@ class PostPage extends React.Component {
 
               if (!post) return <p>404: Post not found</p>;
 
+              if (post.image && post.image.publicUrl) {
+                post.image.mediumUrl = String(post.image.publicUrl).replace('upload/', 'upload/w_864/');
+              }
+
               return (
                 <>
                   <div
@@ -237,7 +241,7 @@ class PostPage extends React.Component {
                     <Head>
                       <title>{post.title}</title>
                     </Head>
-                    {post.image ? <img src={post.image.publicUrl} css={{ width: '100%' }} /> : null}
+                    {post.image ? <img src={post.image.mediumUrl} css={{ width: '100%' }} /> : null}
                     <article css={{ padding: '1em' }}>
                       <h1 css={{ marginTop: 0 }}>{post.title}</h1>
                       <section dangerouslySetInnerHTML={{ __html: post.body }} />
@@ -245,7 +249,7 @@ class PostPage extends React.Component {
                         <p
                           css={{ fontSize: '0.8em', marginBottom: 0, color: 'hsl(200, 20%, 50%)' }}
                         >
-                          Posté par {post.author ? post.author.name : 'someone'} le{' '}
+                          Posté par {post.author ? post.author.name : 'Quelqu\'un'} le{' '}
                           {format(post.posted, 'DD/MM/YYYY')}
                         </p>
                       </div>
