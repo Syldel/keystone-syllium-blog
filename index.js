@@ -11,7 +11,6 @@ require('dotenv').config();
 
 let mongooseAdapterInstance;
 if (process.env.MONGO_URI) {
-  console.log('process.env.MONGO_URI found :-)');
   mongooseAdapterInstance = new MongooseAdapter({
     mongoUri: process.env.MONGO_URI
   });
