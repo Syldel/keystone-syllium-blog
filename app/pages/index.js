@@ -69,7 +69,9 @@ export default () => (
       <Query
         query={gql`
           {
-            allPosts {
+            allPosts (
+              where: {status: published}
+            ) {
               title
               id
               intro
