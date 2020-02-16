@@ -1,9 +1,9 @@
-import Dashboard from './pages/dashboard';
-import About from './pages/about';
+//import Dashboard from './pages/dashboard';
+//import About from './pages/about';
 
 export default {
   pages: () => [
-    {
+    /*{
       label: 'A new dashboard',
       path: '',
       component: Dashboard,
@@ -12,7 +12,7 @@ export default {
       label: 'About this project',
       path: 'about',
       component: About,
-    },
+    },*/
     {
       label: 'Blog',
       children: [
