@@ -99,10 +99,12 @@ exports.Post = {
         { label: 'Published', value: 'published' },
       ],
     },
+    intro: { type: Wysiwyg },
     body: { type: Wysiwyg },
     posted: { type: DateTime, format: 'DD/MM/YYYY' },
     //image: { type: File, adapter: fileAdapter },
     image: { type: CloudinaryImage, adapter: cloudinaryAdapter },
+    showPostedBy: { type: Checkbox },
   },
   adminConfig: {
     defaultPageSize: 20,

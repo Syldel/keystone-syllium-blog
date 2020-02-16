@@ -43,6 +43,7 @@ const ALL_QUERIES = gql`
       id
       title
       slug
+      intro
       body
       posted
       image {
@@ -51,6 +52,7 @@ const ALL_QUERIES = gql`
       author {
         name
       }
+      showPostedBy
     }
 
     allComments(where: { originalPost: { slug: $slug } }) {
