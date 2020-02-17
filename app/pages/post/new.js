@@ -97,7 +97,7 @@ export default () => {
         <Query
           query={gql`
             {
-              allUsers(where: { isAdmin: true }) {
+              allUsers(where: { isAdmin: false }) {
                 name
                 email
                 id

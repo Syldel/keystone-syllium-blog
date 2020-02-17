@@ -52,7 +52,6 @@ const ALL_QUERIES = gql`
       author {
         name
       }
-      showPostedBy
     }
 
     allComments(where: { originalPost: { slug: $slug } }) {
@@ -71,6 +70,13 @@ const ALL_QUERIES = gql`
       name
       email
       id
+    }
+
+    allSettings (
+      where: {key: "showPostDetailPostedBy"}
+    ) {
+      key
+      value
     }
   }
 `;
@@ -202,6 +208,8 @@ const AddComments = ({ users, post }) => {
   );
 };
 
+let showPostDetailPostedBy = true;
+
 class PostPage extends React.Component {
   static getInitialProps({ query: { slug } }) {
     return { slug };
@@ -228,6 +236,13 @@ class PostPage extends React.Component {
                 post.image.mediumUrl = String(post.image.publicUrl).replace('upload/', 'upload/w_864/');
               }
 
+              if (data.allSettings) {
+                const settingsFiltered = data.allSettings.filter(k => k.key === 'showPostDetailPostedBy')[0];
+                if (settingsFiltered) {
+                  showPostDetailPostedBy = (settingsFiltered.value === 'true' || settingsFiltered.value === true);
+                }
+              }
+
               return (
                 <>
                   <div
@@ -247,7 +262,7 @@ class PostPage extends React.Component {
                     <article css={{ padding: '1em' }}>
                       <h1 css={{ marginTop: 0 }}>{post.title}</h1>
                       <section dangerouslySetInnerHTML={{ __html: post.body }} />
-                      {post.showPostedBy ? 
+                      {showPostDetailPostedBy ? 
                       <div css={{ marginTop: '1em', borderTop: '1px solid hsl(200, 20%, 80%)' }}>
                         <p css={{ fontSize: '0.8em', marginBottom: 0, color: 'hsl(200, 20%, 50%)' }}>
                           Posté par {post.author ? post.author.name : 'Quelqu\'un'} le{' '}

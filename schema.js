@@ -55,22 +55,51 @@ const avatarCloudinaryAdapter = new CloudinaryAdapter({
 });
 
 exports.User = {
+  access: {
+    // 1. Only admins can read deactivated user accounts
+    read: ({ authentication: { item } }) => {
+      if (item.isAdmin) {
+        return {}; // Don't filter any items for admins
+      }
+      // Approximately; users.filter(user => user.state !== 'deactivated');
+      return {
+        state_not: 'deactivated',
+      };
+    },
+  },
   fields: {
     name: { type: Text },
-    email: { type: Text, isUnique: true },
-    dob: {
-      type: CalendarDay,
-      format: 'Do MMMM YYYY',
-      yearRangeFrom: 1901,
-      yearRangeTo: getYear(new Date()),
+    email: {
+      type: Text,
+      isUnique: true,
+      // 2. Only authenticated users can read/update their own email, not any other user's. Admins can read/update anyone's email.
+      access: ({ existingItem, authentication }) => (
+        authentication.item.isAdmin || existingItem.id === authentication.item.id
+      ),
     },
+    //dob: {
+    //  type: CalendarDay,
+    //  format: 'Do MMMM YYYY',
+    //  yearRangeFrom: 1901,
+    //  yearRangeTo: getYear(new Date()),
+    //},
     // ...(process.env.IFRAMELY_API_KEY
     //   ? {
     //       portfolio: { type: OEmbed, adapter: iframelyAdapter },
     //     }
     //   : {}),
-    password: { type: Password },
-    isAdmin: { type: Checkbox },
+    password: {
+      type: Password,
+      access: {
+        // 3. Only admins can see if a password is set. No-one can read their own or other user's passwords.
+        read: ({ authentication }) => authentication.item.isAdmin,
+        // 4. Only authenticated users can update their own password. Admins can update anyone's password.
+        update: ({ existingItem, authentication }) => (
+          authentication.item.isAdmin || existingItem.id === authentication.item.id
+        ),
+      },
+    },
+    isAdmin: { type: Checkbox, defaultValue: false },
     //avatar: { type: File, adapter: avatarFileAdapter },
     avatar: { type: CloudinaryImage, adapter: avatarCloudinaryAdapter },
   },
@@ -103,7 +132,6 @@ exports.Post = {
     posted: { type: DateTime, format: 'DD/MM/YYYY' },
     //image: { type: File, adapter: fileAdapter },
     image: { type: CloudinaryImage, adapter: cloudinaryAdapter },
-    showPostedBy: { type: Checkbox },
   },
   adminConfig: {
     defaultPageSize: 20,
@@ -139,7 +167,7 @@ exports.Comment = {
 exports.Setting = {
   fields: {
     key: { type: Text },
-    value: { type: Text },
+    value: { type: Checkbox }
   },
   labelResolver: item => item.key,
 };

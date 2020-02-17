@@ -87,7 +87,6 @@ export default () => (
               author {
                 name
               }
-              showPostedBy
             }
 
             allSettings (
@@ -106,7 +105,7 @@ export default () => (
           if (data.allSettings) {
             const settingsFiltered = data.allSettings.filter(k => k.key === 'showPostListPostedBy')[0];
             if (settingsFiltered) {
-              showPostListPostedBy = (settingsFiltered.value === 'true');
+              showPostListPostedBy = (settingsFiltered.value === 'true' || settingsFiltered.value === true);
             }
           }
 

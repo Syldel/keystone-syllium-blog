@@ -4,15 +4,25 @@ module.exports = {
       name: 'Admin User',
       email: 'admin@keystonejs.com',
       isAdmin: true,
-      dob: '1990-01-01',
+      //dob: '1990-01-01',
       password: 'password',
     },
     {
       name: 'Demo User',
       email: 'user@keystonejs.com',
       isAdmin: false,
-      dob: '1995-06-09',
+      //dob: '1995-06-09',
       password: 'password',
+    },
+  ],
+  Setting: [
+    {
+      key: 'showPostDetailPostedBy',
+      value: true,
+    },
+    {
+      key: 'showPostListPostedBy',
+      value: true,
     },
   ],
 };
