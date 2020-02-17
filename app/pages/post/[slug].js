@@ -15,23 +15,18 @@ import Header from '../../components/header';
 /** @jsx jsx */
 
 const ADD_COMMENT = gql`
-  mutation AddComment($body: String!, $author: ID!, $postId: ID!, $posted: DateTime!) {
+  mutation AddComment($body: String!, $pseudo: String!, $postId: ID!, $posted: DateTime!) {
     createComment(
       data: {
         body: $body
-        author: { connect: { id: $author } }
+        pseudo: $pseudo
         originalPost: { connect: { id: $postId } }
         posted: $posted
       }
     ) {
       id
       body
-      author {
-        name
-        avatar {
-          publicUrl
-        }
-      }
+      pseudo
       posted
     }
   }
@@ -51,25 +46,17 @@ const ALL_QUERIES = gql`
       }
       author {
         name
+        avatar {
+          publicUrl
+        }
       }
     }
 
     allComments(where: { originalPost: { slug: $slug } }) {
       id
       body
-      author {
-        name
-        avatar {
-          publicUrl
-        }
-      }
+      pseudo
       posted
-    }
-
-    allUsers {
-      name
-      email
-      id
     }
 
     allSettings (
@@ -100,11 +87,9 @@ const Comments = ({ data }) => (
             }}
           >
             <img
-              src={
-                comment.author.avatar
-                  ? comment.author.avatar.publicUrl
-                  : imagePlaceholder(comment.author.name)
-              }
+              src={comment.pseudo
+                ? imagePlaceholder(comment.pseudo)
+                : imagePlaceholder('')}
               css={{ width: 48, height: 48, borderRadius: 32 }}
             />
             <div css={{ marginLeft: 16 }}>
@@ -116,7 +101,7 @@ const Comments = ({ data }) => (
                   margin: '8px 0',
                 }}
               >
-                {comment.author.name} le {format(comment.posted, 'DD MMM YYYY')}
+                {comment.pseudo} le {format(comment.posted, 'DD MMM YYYY')}
               </p>
               <p css={{ margin: '8px 0' }}>{comment.body}</p>
             </div>
@@ -126,9 +111,9 @@ const Comments = ({ data }) => (
   </div>
 );
 
-const AddComments = ({ users, post }) => {
-  let user = users.filter(u => u.email == 'user@keystonejs.com')[0];
+const AddComments = ({ post }) => {
   let [comment, setComment] = useState('');
+  let [pseudo, setPseudo] = useState('');
 
   return (
     <div>
@@ -136,7 +121,7 @@ const AddComments = ({ users, post }) => {
       <Mutation
         mutation={ADD_COMMENT}
         update={(cache, { data: data }) => {
-          const { allComments, allUsers, allPosts } = cache.readQuery({
+          const { allComments, allPosts } = cache.readQuery({
             query: ALL_QUERIES,
             variables: { slug: post.slug },
           });
@@ -146,7 +131,6 @@ const AddComments = ({ users, post }) => {
             variables: { slug: post.slug },
             data: {
               allPosts,
-              allUsers,
               allComments: allComments.concat([data.createComment]),
             },
           });
@@ -160,15 +144,35 @@ const AddComments = ({ users, post }) => {
               createComment({
                 variables: {
                   body: comment,
-                  author: user.id,
+                  pseudo: pseudo,
                   postId: post.id,
                   posted: new Date(),
                 },
               });
 
               setComment('');
+              setPseudo('');
             }}
           >
+            <input
+              type="text"
+              placeholder="Votre pseudo"
+              name="pseudo"
+              css={{
+                padding: 12,
+                fontSize: 16,
+                height: 40,
+                border: 0,
+                borderRadius: 6,
+                resize: 'none',
+              }}
+              className="col-sm-4"
+              value={pseudo}
+              onChange={event => {
+                setPseudo(event.target.value);
+              }}
+            />
+
             <textarea
               type="text"
               placeholder="Votre commentaire"
@@ -177,10 +181,11 @@ const AddComments = ({ users, post }) => {
                 padding: 12,
                 fontSize: 16,
                 width: '100%',
-                height: 60,
+                height: 80,
                 border: 0,
                 borderRadius: 6,
                 resize: 'none',
+                marginTop: 12,
               }}
               value={comment}
               onChange={event => {
@@ -261,6 +266,7 @@ class PostPage extends React.Component {
                     {post.image ? <img src={post.image.mediumUrl} css={{ width: '100%' }} /> : null}
                     <article css={{ padding: '1em' }}>
                       <h1 css={{ marginTop: 0 }}>{post.title}</h1>
+                      <section dangerouslySetInnerHTML={{ __html: post.intro }} />
                       <section dangerouslySetInnerHTML={{ __html: post.body }} />
                       {showPostDetailPostedBy ? 
                       <div css={{ marginTop: '1em', borderTop: '1px solid hsl(200, 20%, 80%)' }}>
@@ -274,7 +280,7 @@ class PostPage extends React.Component {
 
                   <Comments data={data} />
 
-                  <AddComments post={post} users={data.allUsers} />
+                  <AddComments post={post} />
                 </>
               );
             }}

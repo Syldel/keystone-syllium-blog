@@ -56,16 +56,11 @@ const avatarCloudinaryAdapter = new CloudinaryAdapter({
 
 exports.User = {
   access: {
-    // 1. Only admins can read deactivated user accounts
-    read: ({ authentication: { item } }) => {
-      if (item.isAdmin) {
-        return {}; // Don't filter any items for admins
-      }
-      // Approximately; users.filter(user => user.state !== 'deactivated');
-      return {
-        state_not: 'deactivated',
-      };
-    },
+    read: true,
+    // Only authenticated users can update their own user data. Admins can update anyone's user data.
+    update: ({ existingItem, authentication }) => (
+      authentication.item.isAdmin || existingItem.id === authentication.item.id
+    ),
   },
   fields: {
     name: { type: Text },
@@ -151,13 +146,10 @@ exports.PostCategory = {
 exports.Comment = {
   fields: {
     body: { type: Text, isMultiline: true },
+    pseudo: { type: Text, isMultiline: false },
     originalPost: {
       type: Relationship,
       ref: 'Post',
-    },
-    author: {
-      type: Relationship,
-      ref: 'User',
     },
     posted: { type: DateTime },
   },
