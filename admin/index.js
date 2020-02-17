@@ -25,5 +25,9 @@ export default {
       label: 'People',
       children: ['User'],
     },
+    {
+      label: 'Settings',
+      children: ['Setting'],
+    },
   ],
 };

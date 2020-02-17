@@ -135,3 +135,11 @@ exports.Comment = {
   },
   labelResolver: item => item.body,
 };
+
+exports.Setting = {
+  fields: {
+    key: { type: Text },
+    value: { type: Text },
+  },
+  labelResolver: item => item.key,
+};

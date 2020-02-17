@@ -39,10 +39,10 @@ const Post = ({ post }) => {
             <article css={{ padding: '1em' }} >
               <h3 css={{ marginTop: 0 }}>{post.title}</h3>
               <section dangerouslySetInnerHTML={{ __html: post.intro }} css={{ color: 'hsl(200, 20%, 20%)' }}/>
-              {post.showPostedBy ? 
+              {showPostListPostedBy ? 
               <div css={{ marginTop: '1em', borderTop: '1px solid hsl(200, 20%, 80%)' }}>
                 <p css={{ fontSize: '0.8em', marginBottom: 0, color: 'hsl(200, 20%, 50%)' }}>
-                  Posté par {post.author ? post.author.name : 'someone'} le{' '}
+                  Posté par {post.author ? post.author.name : 'Quelqu\'un'} le{' '}
                   {format(post.posted, 'DD/MM/YYYY')}
                 </p>
               </div> : null}
@@ -53,6 +53,8 @@ const Post = ({ post }) => {
     </Link>
   );
 };
+
+let showPostListPostedBy = true;
 
 export default () => (
   <Layout>
@@ -87,12 +89,27 @@ export default () => (
               }
               showPostedBy
             }
+
+            allSettings (
+              where: {key: "showPostListPostedBy"}
+            ) {
+              key
+              value
+            }
           }
         `}
       >
         {({ data, loading, error }) => {
           if (loading) return <p>loading...</p>;
           if (error) return <p>Error!</p>;
+
+          if (data.allSettings) {
+            const settingsFiltered = data.allSettings.filter(k => k.key === 'showPostListPostedBy')[0];
+            if (settingsFiltered) {
+              showPostListPostedBy = (settingsFiltered.value === 'true');
+            }
+          }
+
           return (
             <div>
               {data.allPosts.length ? (
