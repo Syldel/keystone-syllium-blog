@@ -1,6 +1,6 @@
 require('dotenv').config();
 const {
-  File,
+  //File,
   Text,
   Slug,
   Relationship,
@@ -9,7 +9,7 @@ const {
   Checkbox,
   CalendarDay,
   DateTime,
-  OEmbed,
+  //OEmbed,
   CloudinaryImage,
 } = require('@keystonejs/fields');
 const { Wysiwyg } = require('@keystonejs/fields-wysiwyg-tinymce');
@@ -22,14 +22,13 @@ const getYear = require('date-fns/get_year');
 const { staticRoute, staticPath, distDir } = require('./config');
 const dev = process.env.NODE_ENV !== 'production';
 
-let iframelyAdapter;
-
-if (process.env.IFRAMELY_API_KEY) {
-  const { IframelyOEmbedAdapter } = require('@keystonejs/oembed-adapters');
-  iframelyAdapter = new IframelyOEmbedAdapter({
-    apiKey: process.env.IFRAMELY_API_KEY,
-  });
-}
+// let iframelyAdapter;
+// if (process.env.IFRAMELY_API_KEY) {
+//   const { IframelyOEmbedAdapter } = require('@keystonejs/oembed-adapters');
+//   iframelyAdapter = new IframelyOEmbedAdapter({
+//     apiKey: process.env.IFRAMELY_API_KEY,
+//   });
+// }
 
 //const fileAdapter = new LocalFileAdapter({
 //  src: `${dev ? '' : `${distDir}/`}${staticPath}/uploads`,
@@ -65,11 +64,11 @@ exports.User = {
       yearRangeFrom: 1901,
       yearRangeTo: getYear(new Date()),
     },
-    ...(process.env.IFRAMELY_API_KEY
-      ? {
-          portfolio: { type: OEmbed, adapter: iframelyAdapter },
-        }
-      : {}),
+    // ...(process.env.IFRAMELY_API_KEY
+    //   ? {
+    //       portfolio: { type: OEmbed, adapter: iframelyAdapter },
+    //     }
+    //   : {}),
     password: { type: Password },
     isAdmin: { type: Checkbox },
     //avatar: { type: File, adapter: avatarFileAdapter },
