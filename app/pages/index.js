@@ -38,13 +38,14 @@ const Post = ({ post }) => {
           <div className="col-sm-8">
             <article css={{ padding: '1em' }} >
               <h3 css={{ marginTop: 0 }}>{post.title}</h3>
-              <section dangerouslySetInnerHTML={{ __html: post.intro }} />
+              <section dangerouslySetInnerHTML={{ __html: post.intro }} css={{ color: 'hsl(200, 20%, 20%)' }}/>
+              {post.showPostedBy ? 
               <div css={{ marginTop: '1em', borderTop: '1px solid hsl(200, 20%, 80%)' }}>
                 <p css={{ fontSize: '0.8em', marginBottom: 0, color: 'hsl(200, 20%, 50%)' }}>
                   Posté par {post.author ? post.author.name : 'someone'} le{' '}
                   {format(post.posted, 'DD/MM/YYYY')}
                 </p>
-              </div>
+              </div> : null}
             </article>
           </div>
         </div>
