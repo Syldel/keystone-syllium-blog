@@ -241,6 +241,10 @@ class PostPage extends React.Component {
                 post.image.mediumUrl = String(post.image.publicUrl).replace('upload/', 'upload/w_864/');
               }
 
+              if (post.author && post.author.avatar && post.author.avatar.publicUrl) {
+                post.author.avatar.thumbnailUrl = String(post.author.avatar.publicUrl).replace('upload/', 'upload/w_80,c_fill,ar_1:1,g_auto,r_max/');
+              }
+
               if (data.allSettings) {
                 const settingsFiltered = data.allSettings.filter(k => k.key === 'showPostDetailPostedBy')[0];
                 if (settingsFiltered) {
@@ -269,8 +273,16 @@ class PostPage extends React.Component {
                       <section dangerouslySetInnerHTML={{ __html: post.intro }} />
                       <section dangerouslySetInnerHTML={{ __html: post.body }} />
                       {showPostDetailPostedBy ? 
-                      <div css={{ marginTop: '1em', borderTop: '1px solid hsl(200, 20%, 80%)' }}>
-                        <p css={{ fontSize: '0.8em', marginBottom: 0, color: 'hsl(200, 20%, 50%)' }}>
+                      <div css={{ marginTop: '1em', borderTop: '1px solid hsl(200, 20%, 80%)', display: 'flex', alignItems: 'center', paddingTop: '1rem' }}>
+                        {post.author.avatar.thumbnailUrl
+                          ? <img src={post.author.avatar.thumbnailUrl} css={{ width: '80px' }} />
+                          : <img src={post.author.name
+                                ? imagePlaceholder(post.author.name)
+                                : imagePlaceholder('')}
+                              css={{ width: 80, height: 80, borderRadius: 40 }}
+                            />
+                          }
+                        <p css={{ fontSize: '1em', marginBottom: 0, marginLeft: '1rem', color: 'hsl(200, 20%, 50%)' }}>
                           Posté par {post.author ? post.author.name : 'Quelqu\'un'} le{' '}
                           {format(post.posted, 'DD/MM/YYYY')}
                         </p>
