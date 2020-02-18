@@ -28,7 +28,7 @@ class Header extends React.Component {
       );
     }
 
-    const logoPath = 'public/images/syllium-diaph.svg';
+    const logoPath = 'images/syllium-diaph.svg';
     let absLogoPath = logoPath;
     if (typeof window !== 'undefined') {
       absLogoPath = `${window.location.origin}/${logoPath}`;

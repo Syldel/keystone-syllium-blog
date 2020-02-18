@@ -24,8 +24,8 @@ const Layout = ({ children }) => (
     <Head>
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       <title>Syllium Photography Blog</title>
-      <link rel="icon" href="../public/images/favicon.ico" />
-      <link rel="stylesheet" type="text/css" href="../public/styles/bootstrap.min.css"></link>
+      <link rel="icon" href="../images/favicon.ico" />
+      <link rel="stylesheet" type="text/css" href="../styles/bootstrap.min.css"></link>
     </Head>
     <div
       css={{
