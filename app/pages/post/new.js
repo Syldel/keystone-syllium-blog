@@ -9,6 +9,7 @@ import { useState } from 'react';
 import styled from '@emotion/styled';
 
 import Layout from '../../templates/layout';
+import Header from '../../components/header';
 
 const FormGroup = styled.div({
   display: 'flex',
@@ -52,6 +53,11 @@ const ADD_POST = gql`
   }
 `;
 
+const leftChevron = color => <span css={{ width: '20px', height: '20px', display: 'flex', marginRight: '0.3rem' }} dangerouslySetInnerHTML={{__html: `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 256 256" style="width: 100%" xml:space="preserve">
+<style>.svg-node{fill: ${color}}</style>
+<g class="svg-node"><polygon points="207.093,30.187 176.907,0 48.907,128 176.907,256 207.093,225.813 109.28,128"/></g>
+</svg>`}} />;
+
 export default () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
@@ -62,9 +68,10 @@ export default () => {
 
   return (
     <Layout>
+      <Header />
       <div css={{ margin: '48px 0' }}>
         <Link href="/" passHref>
-          <a css={{ color: 'hsl(200,20%,50%)', cursor: 'pointer' }}>{'< Accueil'}</a>
+          <a css={{ color: 'hsl(200,20%,50%)', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>{leftChevron('hsl(200,20%,50%)')}Accueil</a>
         </Link>
         <h1>Nouvel Article</h1>
 

@@ -68,6 +68,11 @@ const ALL_QUERIES = gql`
   }
 `;
 
+const leftChevron = color => <span css={{ width: '20px', height: '20px', display: 'flex', marginRight: '0.3rem' }} dangerouslySetInnerHTML={{__html: `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 256 256" style="width: 100%" xml:space="preserve">
+<style>.svg-node{fill: ${color}}</style>
+<g class="svg-node"><polygon points="207.093,30.187 176.907,0 48.907,128 176.907,256 207.093,225.813 109.28,128"/></g>
+</svg>`}} />;
+
 const imagePlaceholder = name => `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width="100" height="100">
 <rect width="100" height="100" fill="hsl(200,20%,50%)" />
 <text text-anchor="middle" x="50" y="67" fill="white" style="font-size: 50px; font-family: 'Lato', sans-serif;">
@@ -226,7 +231,7 @@ class PostPage extends React.Component {
         <Header />
         <div css={{ margin: '48px 0' }}>
           <Link href="/" passHref>
-            <a css={{ color: 'hsl(200,20%,50%)', cursor: 'pointer' }}>{'< Accueil'}</a>
+            <a css={{ color: 'hsl(200,20%,50%)', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>{leftChevron('hsl(200,20%,50%)')}Accueil</a>
           </Link>
           <Query query={ALL_QUERIES} variables={{ slug }}>
             {({ data, loading, error }) => {
