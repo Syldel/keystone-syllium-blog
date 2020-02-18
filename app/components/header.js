@@ -1,5 +1,8 @@
 import Link from 'next/link';
 import React from 'react';
+
+import Nav from './nav.js';
+
 import { jsx } from '@emotion/core';
 
 /** @jsx jsx */
@@ -17,8 +20,12 @@ class Header extends React.Component {
   render() {
     if(!this.state.ssrDone) {
       return (
-        <div>loading...</div>
-      )
+        <div className="d-flex justify-content-center">
+          <div className="spinner-grow text-dark" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        </div>
+      );
     }
 
     const logoPath = 'public/images/syllium-diaph.svg';
@@ -30,28 +37,32 @@ class Header extends React.Component {
     return (
       <header
         css={{
-          display: 'flex',
-          alignItems: 'center',
-          margin: '48px 0',
+          margin: '36px 0',
         }}
       >
-        <img src={absLogoPath} alt="logo" css={{width: '80px'}} />
-        <Link href="/" passHref>
-          <a css={{
-            color: 'hsl(200, 20%, 50%)',
-            margin: '0 0 0 1rem',
-            lineHeight: '2.2rem',
-            fontSize: '2em',
-            ':hover': {
-              textDecoration: 'none'
-            },
-          }}>Syllium Photography Blog</a>
-        </Link>
-        {/*
-        <Link href="/post/new" passHref>
-          <a css={{ color: 'hsl(200, 20%, 50%)', cursor: 'pointer' }}>+ Add Post</a>
-        </Link>
-        */}
+        <div css={{
+          display: 'flex',
+          alignItems: 'center'
+        }}>
+          <img src={absLogoPath} alt="logo" css={{width: '80px'}} />
+          <Link href="/" passHref>
+            <a css={{
+              color: 'hsl(200, 20%, 50%)',
+              margin: '0 0 0 1rem',
+              lineHeight: '2.2rem',
+              fontSize: '2em',
+              ':hover': {
+                textDecoration: 'none'
+              },
+            }}>Syllium Photography Blog</a>
+          </Link>
+          {/*
+          <Link href="/post/new" passHref>
+            <a css={{ color: 'hsl(200, 20%, 50%)', cursor: 'pointer' }}>+ Add Post</a>
+          </Link>
+          */}
+        </div>
+        <Nav />
       </header>
     );
   }

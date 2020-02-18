@@ -231,14 +231,20 @@ class PostPage extends React.Component {
         <Header />
         <div css={{ margin: '48px 0' }}>
           <Link href="/" passHref>
-            <a css={{ color: 'hsl(200,20%,50%)', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>{leftChevron('hsl(200,20%,50%)')}Accueil</a>
+            <a css={{ color: 'hsl(200,20%,50%)', cursor: 'pointer', display: 'flex', alignItems: 'center' }} className="mb-3">{leftChevron('hsl(200,20%,50%)')}Accueil</a>
           </Link>
           <Query query={ALL_QUERIES} variables={{ slug }}>
             {({ data, loading, error }) => {
-              if (loading) return <p>loading...</p>;
+              if (loading) return (
+                <div className="d-flex justify-content-center">
+                  <div className="spinner-grow text-dark" role="status">
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                </div>
+              );
               if (error) return <p>Error!</p>;
 
-              const post = data.allPosts && data.allPosts[0];
+              const post = data && data.allPosts && data.allPosts[0];
 
               if (!post) return <p>404: Post not found</p>;
 
