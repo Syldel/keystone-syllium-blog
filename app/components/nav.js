@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Loading from './loading';
 
 const links = [
   { href: 'https://zeit.co/now', label: 'ZEIT' },
@@ -21,13 +22,7 @@ class Nav extends React.Component {
   }
   render() {
     if (!this.state.ssrDone) {
-      return (
-        <div className="d-flex justify-content-center">
-          <div className="spinner-grow text-dark" role="status">
-            <span className="sr-only">Loading...</span>
-          </div>
-        </div>
-      );
+      return <Loading />;
     }
 
     return (

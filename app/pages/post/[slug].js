@@ -11,6 +11,7 @@ import { format } from 'date-fns';
 
 import Layout from '../../templates/layout';
 import Header from '../../components/header';
+import Loading from '../../components/loading';
 
 /** @jsx jsx */
 
@@ -235,13 +236,7 @@ class PostPage extends React.Component {
           </Link>
           <Query query={ALL_QUERIES} variables={{ slug }}>
             {({ data, loading, error }) => {
-              if (loading) return (
-                <div className="d-flex justify-content-center">
-                  <div className="spinner-grow text-dark" role="status">
-                    <span className="sr-only">Loading...</span>
-                  </div>
-                </div>
-              );
+              if (loading) return <Loading />;
               if (error) return <p>Error!</p>;
 
               const post = data && data.allPosts && data.allPosts[0];

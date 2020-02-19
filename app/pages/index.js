@@ -8,6 +8,7 @@ import { format } from 'date-fns';
 
 import Layout from '../templates/layout';
 import Header from '../components/header';
+import Loading from '../components/loading';
 
 /** @jsx jsx */
 
@@ -99,13 +100,7 @@ export default () => (
         `}
       >
         {({ data, loading, error }) => {
-          if (loading) return (
-            <div className="d-flex justify-content-center">
-              <div className="spinner-grow text-dark" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-            </div>
-          );
+          if (loading) return <Loading />;
           if (error) return <p>Error!</p>;
 
           if (data.allSettings) {

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 
 import Nav from './nav.js';
+import Loading from './loading';
 
 import { jsx } from '@emotion/core';
 
@@ -18,14 +19,8 @@ class Header extends React.Component {
     this.setState({ ssrDone: true, online: navigator.onLine })
   }
   render() {
-    if(!this.state.ssrDone) {
-      return (
-        <div className="d-flex justify-content-center">
-          <div className="spinner-grow text-dark" role="status">
-            <span className="sr-only">Loading...</span>
-          </div>
-        </div>
-      );
+    if (!this.state.ssrDone) {
+      return <Loading />;
     }
 
     const logoPath = 'images/syllium-diaph.svg';
