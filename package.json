@@ -11,7 +11,8 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development DISABLE_LOGGING=true keystone dev",
     "build": "cross-env NODE_ENV=production keystone build",
-    "start": "cross-env NODE_ENV=production keystone start"
+    "start": "cross-env NODE_ENV=production keystone start",
+    "backup": "node backup-mongo.js"
   },
   "dependencies": {
     "@arch-ui/layout": "^0.2.8",
@@ -39,6 +40,7 @@
     "graphql-request": "^1.8.2",
     "graphql-tag": "^2.10.1",
     "isomorphic-unfetch": "^3.0.0",
+    "mongodb-backup-4x": "git+https://github.com/phoscur/mongodb-backup.git",
     "next": "^9.2.0",
     "node-fetch": "^2.3.0",
     "react": "^16.12.0",
