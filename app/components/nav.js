@@ -1,10 +1,12 @@
 import React from 'react';
-import Link from 'next/link';
+import { Router } from 'next/router';
 import Loading from './loading';
+import ActiveLink from './active-link';
 
 const links = [
   { href: 'https://zeit.co/now', label: 'ZEIT' },
-  { href: 'https://github.com/zeit/next.js', label: 'GitHub' }
+  { href: 'https://github.com/zeit/next.js', label: 'GitHub' },
+  { href: '/post/conseils-instagram-pour-les-debutants', label: 'post' },
 ].map(link => {
   link.key = `nav-link-${link.href}-${link.label}`;
   return link;
@@ -29,43 +31,49 @@ class Nav extends React.Component {
       <nav className="navbar">
         <ul className="nav">
           <li className="nav-item">
-            <Link href="/">
+            <ActiveLink activeClassName="active" href="/">
               <a className="nav-link">Accueil</a>
-            </Link>
+            </ActiveLink>
           </li>
           {links.map(({ key, href, label }) => (
             <li className="nav-item" key={key}>
-              <a className="nav-link" href={href}>{label}</a>
+              <ActiveLink activeClassName="active" href={href}>
+                <a className="nav-link">{label}</a>
+              </ActiveLink>
             </li>
           ))}
         </ul>
 
-        {/*<style jsx>{`
-      :global(body) {
-        margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir,
-          Helvetica, sans-serif;
-      }
-      nav {
-        text-align: center;
-      }
-      ul {
-        display: flex;
-        justify-content: space-between;
-      }
-      nav > ul {
-        padding: 4px 16px;
-      }
-      li {
-        display: flex;
-        padding: 6px 8px;
-      }
-      a {
-        color: #067df7;
-        text-decoration: none;
-        font-size: 13px;
-      }
-    `}</style>*/}
+        <style jsx>{`
+        .navbar {
+          background-color: hsl(200,20%,50%);
+          padding: 0.5rem;
+          margin-top: 2rem;
+          box-shadow: 0px 10px 20px hsla(200, 20%, 20%, 0.20);
+          border-radius: 6px;
+        }
+        .nav-link {
+          color: #ccc;
+        }
+        .nav-link.active {
+          color: hsl(200,20%,50%);
+          background-color: #eee;
+          border-radius: 6px;
+        }
+        .nav-link.active:hover {
+          color: hsl(200,20%,50%);
+        }
+        .nav-link:hover {
+          color: #fff;
+        }
+
+        /*:global(body) {
+          margin: 0;
+          font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir,
+            Helvetica, sans-serif;
+        }*/
+      `}</style>
+
       </nav>);
   }
 }
