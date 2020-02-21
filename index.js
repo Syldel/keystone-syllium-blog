@@ -20,7 +20,7 @@ if (process.env.MONGO_URI) {
 }
 
 const { staticRoute, staticPath, distDir } = require('./config');
-const { User, Post, PostCategory, Comment, Setting } = require('./schema');
+const { User, Post, PostCategory, Comment, Setting, NavItem } = require('./schema');
 
 const keystone = new Keystone({
   name: 'Keystone Syllium Blog',
@@ -46,6 +46,7 @@ keystone.createList('Post', Post);
 keystone.createList('PostCategory', PostCategory);
 keystone.createList('Comment', Comment);
 keystone.createList('Setting', Setting);
+keystone.createList('NavItem', NavItem);
 
 const adminApp = new AdminUIApp({
   adminPath: '/admin',

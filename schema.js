@@ -159,7 +159,24 @@ exports.Comment = {
 exports.Setting = {
   fields: {
     key: { type: Text },
-    value: { type: Checkbox }
+    value: { type: Checkbox },
   },
   labelResolver: item => item.key,
+};
+
+exports.NavItem = {
+  fields: {
+    name: { type: Text, isMultiline: false },
+    href: { type: Text, isMultiline: false },
+    target: {
+      type: Select,
+      defaultValue: '_self',
+      options: [
+        { label: '_self', value: '_self' },
+        { label: '_blank', value: '_blank' },
+      ],
+    },
+    published: { type: Checkbox, defaultValue: false },
+  },
+  labelResolver: item => item.name,
 };

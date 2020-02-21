@@ -27,7 +27,10 @@ export default {
     },
     {
       label: 'Settings',
-      children: ['Setting'],
+      children: [
+        { listKey: 'Setting' },
+        { listKey: 'NavItem' },
+      ],
     },
   ],
 };
