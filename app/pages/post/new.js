@@ -10,7 +10,7 @@ import styled from '@emotion/styled';
 import Layout from '../../templates/layout';
 import Header from '../../components/header';
 import Loading from '../../components/loading';
-import BackButton from '../../components/back-button';
+//import BackButton from '../../components/back-button';
 
 const FormGroup = styled.div({
   display: 'flex',
@@ -66,7 +66,7 @@ export default () => {
     <Layout>
       <Header />
       <div css={{ margin: '48px 0' }}>
-        <BackButton href="/" color="hsl(200,20%,50%)" className="mb-3">Accueil</BackButton>
+        {/* <BackButton href="/" color="hsl(200,20%,50%)" className="mb-3">Accueil</BackButton> */}
         <h1>Nouvel Article</h1>
 
         {showBanner && (
