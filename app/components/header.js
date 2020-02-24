@@ -10,10 +10,10 @@ import { jsx } from '@emotion/core';
 
 class Header extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       ssrDone: false
-    }
+    };
   }
   componentDidMount() {
     this.setState({ ssrDone: true, online: navigator.onLine })
@@ -57,7 +57,7 @@ class Header extends React.Component {
           </Link>
           */}
         </div>
-        <Nav />
+        <Nav data={this.props.data} />
       </header>
     );
   }

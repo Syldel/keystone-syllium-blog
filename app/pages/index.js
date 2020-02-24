@@ -59,68 +59,78 @@ let showPostListPostedBy = true;
 
 export default () => (
   <Layout>
-    <Header />
-    <section css={{ margin: '48px 0' }}>
-      <h2>À propos</h2>
-      <p>
-        Ce blog est dédié à ma passion pour la photographie. J'ai envie de partager avec vous mes voyages, mes avis, mes expériences.
-        Bref, tout ce qui peut être intéressant dans le domaine de la photographie. J'espère que ça vous plaira.
-      </p>
-    </section>
-
-    <section css={{ margin: '48px 0' }}>
-      <h2>Les derniers articles</h2>
-      <Query
-        query={gql`
-          {
-            allPosts (
-              where: {status: published}
-            ) {
-              title
-              id
-              intro
-              body
-              posted
-              slug
-              image {
-                publicUrl
-              }
-              author {
-                name
-              }
+    <Query
+      query={gql`
+        {
+          allPosts (
+            where: {status: published}
+          ) {
+            title
+            id
+            intro
+            body
+            posted
+            slug
+            image {
+              publicUrl
             }
-
-            allSettings (
-              where: {key: "showPostListPostedBy"}
-            ) {
-              key
-              value
-            }
-          }
-        `}
-      >
-        {({ data, loading, error }) => {
-          if (loading) return <Loading />;
-          if (error) return <p>Error!</p>;
-
-          if (data.allSettings) {
-            const settingsFiltered = data.allSettings.filter(k => k.key === 'showPostListPostedBy')[0];
-            if (settingsFiltered) {
-              showPostListPostedBy = (settingsFiltered.value === 'true' || settingsFiltered.value === true);
+            author {
+              name
             }
           }
 
-          return (
-            <div>
-              {data.allPosts.length ? (
-                data.allPosts.map(post => <Post post={post} key={post.id} />)
-              ) : (
-                <p>No posts to display</p>
-              )}
-            </div>
-          );
-        }}
-      </Query>
-    </section>
+          allSettings (
+            where: {key: "showPostListPostedBy"}
+          ) {
+            key
+            value
+          }
+
+          allNavItems (
+            where: {published: true}
+          ) {
+            id
+            name
+            href
+            target
+          }
+        }
+      `}
+    >
+      {({ data, loading, error }) => {
+        if (loading) return <Loading />;
+        if (error) return <p>Error!</p>;
+
+        if (data.allSettings) {
+          const settingsFiltered = data.allSettings.filter(k => k.key === 'showPostListPostedBy')[0];
+          if (settingsFiltered) {
+            showPostListPostedBy = (settingsFiltered.value === 'true' || settingsFiltered.value === true);
+          }
+        }
+
+        return (
+          <>
+            <Header data={data.allNavItems} />
+            <section css={{ margin: '48px 0' }}>
+              <h2>À propos</h2>
+              <p>
+                Ce blog est dédié à ma passion pour la photographie. J'ai envie de partager avec vous mes voyages, mes avis, mes expériences.
+                Bref, tout ce qui peut être intéressant dans le domaine de la photographie. J'espère que ça vous plaira.
+              </p>
+            </section>
+            <section css={{ margin: '48px 0' }}>
+              <h2>Les derniers articles</h2>
+              <div>
+                {data.allPosts.length ? (
+                  data.allPosts.map(post => <Post post={post} key={post.id} />)
+                ) : (
+                  <p>No posts to display</p>
+                )}
+              </div>
+            </section>
+          </>
+        );
+      }}
+    </Query>
   </Layout>
 );
