@@ -17,10 +17,12 @@ class Nav extends React.Component {
       return <Loading />;
     }
 
+    const data = this.props.data || [];
+
     return (
       <nav className="navbar">
         <ul className="nav">
-          {this.props.data.map(({ id, href, name, target }) => (
+          {data.map(({ id, href, name, target }) => (
             <li className="nav-item" key={id}>
               <ActiveLink activeClassName="active" href={href} target={target}>
                 <a className="nav-link">{name}</a>

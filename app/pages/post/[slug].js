@@ -66,6 +66,15 @@ const ALL_QUERIES = gql`
       key
       value
     }
+
+    allNavItems (
+      where: {published: true}
+    ) {
+      id
+      name
+      href
+      target
+    }
   }
 `;
 
@@ -224,35 +233,35 @@ class PostPage extends React.Component {
     const { slug } = this.props;
     return (
       <Layout>
-        <Header />
-        <div css={{ margin: '48px 0' }}>
-          {/* <BackButton href="/" color="hsl(200,20%,50%)" className="mb-3">Accueil</BackButton> */}
-          <Query query={ALL_QUERIES} variables={{ slug }}>
-            {({ data, loading, error }) => {
-              if (loading) return <Loading />;
-              if (error) return <p>Error!</p>;
+        <Query query={ALL_QUERIES} variables={{ slug }}>
+          {({ data, loading, error }) => {
+            if (loading) return <Loading />;
+            if (error) return <p>Error!</p>;
 
-              const post = data && data.allPosts && data.allPosts[0];
+            const post = data && data.allPosts && data.allPosts[0];
 
-              if (!post) return <p>404: Post not found</p>;
+            if (!post) return <p>404: Post not found</p>;
 
-              if (post.image && post.image.publicUrl) {
-                post.image.mediumUrl = String(post.image.publicUrl).replace('upload/', 'upload/w_864/');
+            if (post.image && post.image.publicUrl) {
+              post.image.mediumUrl = String(post.image.publicUrl).replace('upload/', 'upload/w_864/');
+            }
+
+            if (post.author && post.author.avatar && post.author.avatar.publicUrl) {
+              post.author.avatar.thumbnailUrl = String(post.author.avatar.publicUrl).replace('upload/', 'upload/w_80,c_fill,ar_1:1,g_auto,r_max/');
+            }
+
+            if (data.allSettings) {
+              const settingsFiltered = data.allSettings.filter(k => k.key === 'showPostDetailPostedBy')[0];
+              if (settingsFiltered) {
+                showPostDetailPostedBy = (settingsFiltered.value === 'true' || settingsFiltered.value === true);
               }
+            }
 
-              if (post.author && post.author.avatar && post.author.avatar.publicUrl) {
-                post.author.avatar.thumbnailUrl = String(post.author.avatar.publicUrl).replace('upload/', 'upload/w_80,c_fill,ar_1:1,g_auto,r_max/');
-              }
-
-              if (data.allSettings) {
-                const settingsFiltered = data.allSettings.filter(k => k.key === 'showPostDetailPostedBy')[0];
-                if (settingsFiltered) {
-                  showPostDetailPostedBy = (settingsFiltered.value === 'true' || settingsFiltered.value === true);
-                }
-              }
-
-              return (
-                <>
+            return (
+              <>
+                <Header data={data.allNavItems} />
+                <div css={{ margin: '48px 0' }}>
+                  {/* <BackButton href="/" color="hsl(200,20%,50%)" className="mb-3">Accueil</BackButton> */}
                   <div
                     css={{
                       background: 'white',
@@ -292,11 +301,11 @@ class PostPage extends React.Component {
                   <Comments data={data} />
 
                   <AddComments post={post} />
-                </>
-              );
-            }}
-          </Query>
-        </div>
+                </div>
+              </>
+            );
+          }}
+        </Query>
       </Layout>
     );
   }
