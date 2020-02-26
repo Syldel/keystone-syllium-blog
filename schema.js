@@ -7,7 +7,7 @@ const {
   Select,
   Password,
   Checkbox,
-  CalendarDay,
+  //CalendarDay,
   DateTime,
   //OEmbed,
   CloudinaryImage,
@@ -17,10 +17,10 @@ const {
   //LocalFileAdapter,
   CloudinaryAdapter
 } = require('@keystonejs/file-adapters');
-const getYear = require('date-fns/get_year');
+//const getYear = require('date-fns/get_year');
 
-const { staticRoute, staticPath, distDir } = require('./config');
-const dev = process.env.NODE_ENV !== 'production';
+//const { staticRoute, staticPath, distDir } = require('./config');
+//const dev = process.env.NODE_ENV !== 'production';
 
 // let iframelyAdapter;
 // if (process.env.IFRAMELY_API_KEY) {
@@ -53,6 +53,21 @@ const avatarCloudinaryAdapter = new CloudinaryAdapter({
   apiSecret: process.env.CLOUDINARY_SECRET || '',
   folder: 'keystone-syllium-blog/avatar',
 });
+
+// Access control functions
+const userIsAdmin = ({ authentication: { item: user } }) => Boolean(user && user.isAdmin);
+const userOwnsItem = ({ authentication: { item: user } }) => {
+  if (!user) {
+    return false;
+  }
+  return { id: user.id };
+};
+const userIsAdminOrOwner = auth => {
+  const isAdmin = access.userIsAdmin(auth);
+  const isOwner = access.userOwnsItem(auth);
+  return isAdmin ? isAdmin : isOwner;
+};
+const access = { userIsAdmin, userOwnsItem, userIsAdminOrOwner };
 
 exports.User = {
   access: {
@@ -102,6 +117,12 @@ exports.User = {
 };
 
 exports.Post = {
+  access: {
+    read: true,
+    update: access.userIsAdmin,
+    create: access.userIsAdmin,
+    delete: access.userIsAdmin,
+  },
   fields: {
     title: { type: Text },
     slug: { type: Slug, from: 'title' },
@@ -137,6 +158,12 @@ exports.Post = {
 };
 
 exports.PostCategory = {
+  access: {
+    read: true,
+    update: access.userIsAdmin,
+    create: access.userIsAdmin,
+    delete: access.userIsAdmin,
+  },
   fields: {
     name: { type: Text },
     slug: { type: Slug, from: 'name' },
@@ -144,6 +171,12 @@ exports.PostCategory = {
 };
 
 exports.Comment = {
+  access: {
+    read: true,
+    update: access.userIsAdminOrOwner,
+    create: true,
+    delete: access.userIsAdminOrOwner,
+  },
   fields: {
     body: { type: Text, isMultiline: true },
     pseudo: { type: Text, isMultiline: false },
@@ -157,6 +190,12 @@ exports.Comment = {
 };
 
 exports.Setting = {
+  access: {
+    read: true,
+    update: access.userIsAdmin,
+    create: access.userIsAdmin,
+    delete: access.userIsAdmin,
+  },
   fields: {
     key: { type: Text },
     value: { type: Checkbox },
@@ -165,6 +204,12 @@ exports.Setting = {
 };
 
 exports.NavItem = {
+  access: {
+    read: true,
+    update: access.userIsAdmin,
+    create: access.userIsAdmin,
+    delete: access.userIsAdmin,
+  },
   fields: {
     name: { type: Text, isMultiline: false },
     href: { type: Text, isMultiline: false },
