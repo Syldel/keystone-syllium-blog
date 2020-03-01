@@ -25,6 +25,7 @@ const { User, Post, PostCategory, Comment, Setting, NavItem } = require('./schem
 const keystone = new Keystone({
   name: 'Keystone Syllium Blog',
   adapter: mongooseAdapterInstance,
+  secureCookies: false,
   onConnect: async () => {
     // Initialise some data.
     // NOTE: This is only for demo purposes and should not be used in production
