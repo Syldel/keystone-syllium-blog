@@ -1,9 +1,9 @@
 {
   "name": "keystone-syllium-blog",
-  "description": "An example KeystoneJS project showcasing a Blogging Site.",
+  "description": "Blog KeystoneJS project.",
   "private": true,
   "version": "5.1.4",
-  "author": "The KeystoneJS Development Team",
+  "author": "Sylvain D. and The KeystoneJS Development Team",
   "license": "MIT",
   "engines": {
     "node": "10.17.0",
