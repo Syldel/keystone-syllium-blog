@@ -13,8 +13,12 @@ const SITEMAP_QUERY = `{
 }`;
 
 const Sitemap = (req, res) => {
-
-  const siteOrigin = `https://${req.hostname}/`;
+  let hostname = req.hostname;
+  if (req.headers && req.headers.host) {
+    hostname = req.headers.host;
+  }
+  const requestUrl = `${req.protocol}://${hostname}/`;
+  const siteOrigin = `https://${hostname}/`;
 
   xml += `<url>`;
   xml += `<loc>${siteOrigin}</loc>`;
@@ -22,7 +26,7 @@ const Sitemap = (req, res) => {
   xml += `<priority>0.8</priority>`;
   xml += `</url>`;
 
-  request('http://localhost:3000/admin/api', SITEMAP_QUERY).then(data => {
+  request(`${requestUrl}admin/api`, SITEMAP_QUERY).then(data => {
     if (data && data.allPosts) {
       data.allPosts.forEach(postObj => {
         xml += `<url>`;
