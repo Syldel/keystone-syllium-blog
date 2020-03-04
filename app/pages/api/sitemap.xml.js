@@ -13,12 +13,17 @@ const SITEMAP_QUERY = `{
 }`;
 
 const Sitemap = (req, res) => {
+  /*
   let hostname = req.hostname;
   if (req.headers && req.headers.host) {
     hostname = req.headers.host;
   }
   const requestUrl = `${req.protocol}://${hostname}/`;
   const siteOrigin = `https://${hostname}/`;
+  */
+
+  const requestUrl = `https://blog.syllium-photography.fr/`;
+  const siteOrigin = requestUrl;
 
   xml += `<url>`;
   xml += `<loc>${siteOrigin}</loc>`;
