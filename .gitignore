@@ -1,6 +1,14 @@
-/dist
+#/dist/*
 
 node_modules
 _backups
 .env
-CHANGELOG.md
+
+# misc
+/.sass-cache
+npm-debug.log
+yarn-error.log
+
+# System Files
+.DS_Store
+Thumbs.db
