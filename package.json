@@ -7,7 +7,7 @@
   "license": "MIT",
   "engines": {
     "node": "10.17.0",
-    "npm": "6.13.4"
+    "npm": "6.13.7"
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=development DISABLE_LOGGING=true keystone dev",
@@ -17,8 +17,8 @@
     "heroku-postbuild": "npm run build"
   },
   "dependencies": {
-    "@arch-ui/layout": "^0.2.8",
-    "@arch-ui/typography": "^0.0.12",
+    "@arch-ui/layout": "^0.2.9",
+    "@arch-ui/typography": "0.0.13",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.22",
     "@keystonejs/adapter-mongoose": "^5.2.0",
@@ -34,8 +34,8 @@
     "@keystonejs/keystone": "^5.6.0",
     "apollo-boost": "^0.4.4",
     "apollo-client": "^2.6.4",
-    "apollo-upload-client": "^10.0.0",
-    "cross-env": "^5.2.0",
+    "apollo-upload-client": "^12.1.0",
+    "cross-env": "^7.0.1",
     "date-fns": "^1.30.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
