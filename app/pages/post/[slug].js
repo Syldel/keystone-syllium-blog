@@ -243,11 +243,11 @@ class PostPage extends React.Component {
             if (!post) return <p>404: Post not found</p>;
 
             if (post.image && post.image.publicUrl) {
-              post.image.mediumUrl = String(post.image.publicUrl).replace('upload/', 'upload/w_864/');
+              post.image.mediumUrl = String(post.image.publicUrl).replace('upload/', 'upload/w_864,q_60/');
             }
 
             if (post.author && post.author.avatar && post.author.avatar.publicUrl) {
-              post.author.avatar.thumbnailUrl = String(post.author.avatar.publicUrl).replace('upload/', 'upload/w_80,c_fill,ar_1:1,g_auto,r_max/');
+              post.author.avatar.thumbnailUrl = String(post.author.avatar.publicUrl).replace('upload/', 'upload/w_80,c_fill,ar_1:1,g_auto,r_max,q_60/');
             }
 
             if (data.allSettings) {

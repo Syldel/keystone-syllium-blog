@@ -15,7 +15,7 @@ import Loading from '../components/loading';
 const Post = ({ post }) => {
 
   if (post && post.image && post.image.publicUrl) {
-    post.image.thumbnailUrl = String(post.image.publicUrl).replace('upload/', 'upload/w_288/');
+    post.image.thumbnailUrl = String(post.image.publicUrl).replace('upload/', 'upload/w_288,q_60/');
   }
 
   return (
