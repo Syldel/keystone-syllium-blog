@@ -29,7 +29,7 @@ const Layout = ({ children }) => (
     </Head>
     <div
       css={{
-        padding: '0 48px',
+        padding: '0 12px',
         width: '100%',
         maxWidth: 960,
         margin: '0 auto',
@@ -44,21 +44,15 @@ const Layout = ({ children }) => (
           color: 'hsl(200, 20%, 50%)',
         }}
       >
-        {/*
-        Built with KeystoneJS.{' '}
         <a
-          href="/admin"
+          href="https://www.syllium-photography.fr/"
           css={{
             color: 'hsl(200, 20%, 50%)',
             fontWeight: 800,
             textDecoration: 'none',
             '&:hover': { textDecoration: 'underline' },
           }}
-        >
-          Go to Admin Console
-        </a>
-        .
-        */}
+        >www.syllium-photography.fr</a>
       </footer>
     </div>
   </>
