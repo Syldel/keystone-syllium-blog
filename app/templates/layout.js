@@ -24,8 +24,10 @@ const Layout = ({ children }) => (
     <Head>
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       <title>Syllium Photography Blog</title>
+      <meta name="description" content="Ce blog est dédié à ma passion pour la photographie. Je partage avec vous mes voyages, mes avis, mes expériences." />
       <link rel="icon" href="../images/favicon.ico" />
-      <link rel="stylesheet" type="text/css" href="../styles/bootstrap.min.css"></link>
+      <link rel="stylesheet" type="text/css" href="../styles/lato-font.css" />
+      <link rel="stylesheet" type="text/css" href="../styles/bootstrap.min.css" />
     </Head>
     <div
       css={{
