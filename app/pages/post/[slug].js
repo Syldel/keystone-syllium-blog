@@ -257,6 +257,10 @@ class PostPage extends React.Component {
               }
             }
 
+            let metaDescription = post.intro || post.body;
+            metaDescription = metaDescription.replace(/<\/?[^>]+(>|$)/g, '');
+            metaDescription = metaDescription.substring(0, 160);
+
             return (
               <>
                 <Header data={data.allNavItems} />
@@ -274,6 +278,7 @@ class PostPage extends React.Component {
                   >
                     <Head>
                       <title>{post.title}</title>
+                      <meta name="description" content={metaDescription} />
                     </Head>
                     {post.image ? <img src={post.image.mediumUrl} css={{ width: '100%' }} /> : null}
                     <article css={{ padding: '1em' }}>
