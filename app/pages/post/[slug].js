@@ -229,7 +229,24 @@ class PostPage extends React.Component {
   static getInitialProps({ query: { slug } }) {
     return { slug };
   }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      ssrDone: false
+    };
+  }
+
+  componentDidMount() {
+    this.currentWindowLocation = window.location;
+    this.setState({ ssrDone: true });
+  }
+
   render() {
+    if (!this.state.ssrDone) {
+      return <Loading />;
+    }
+
     const { slug } = this.props;
     return (
       <Layout>
@@ -279,6 +296,11 @@ class PostPage extends React.Component {
                     <Head>
                       <title>{post.title}</title>
                       <meta name="description" content={metaDescription} />
+                      <meta property="og:title" content={post.title} />
+                      <meta property="og:type" content="article" />
+                      <meta property="og:url" content={this.currentWindowLocation.href} />
+                      <meta property="og:image" content={post.image ? post.image.mediumUrl : ''} />
+                      <meta property="og:description" content={metaDescription} />
                     </Head>
                     {post.image ? <img src={post.image.mediumUrl} css={{ width: '100%' }} /> : null}
                     <article css={{ padding: '1em' }}>
