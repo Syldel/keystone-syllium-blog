@@ -305,6 +305,45 @@ class PostPage extends React.Component {
                       <meta property="og:url" content={this.currentWindowLocation.href} />
                       <meta property="og:image" content={post.image ? post.image.mediumUrl : ''} />
                       <meta property="og:description" content={metaDescription} />
+                      <script type="application/ld+json">{`{
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [{
+                          "@type": "ListItem",
+                          "position": 1,
+                          "name": "Accueil",
+                          "item": "${this.currentWindowLocation.origin}"
+                        },{
+                          "@type": "ListItem",
+                          "position": 2,
+                          "name": "${post.title}",
+                          "item": "${this.currentWindowLocation.href}"
+                        }]
+                      }`}</script>
+                      <script type="application/ld+json">{`{
+                        "@context": "https://schema.org",
+                        "@type": "Article",
+                        "headline": "${post.title}",
+                        "image": "${post.image ? post.image.mediumUrl : ''}",
+                        "author": "${post.author.name}",
+                        "publisher": {
+                          "@type": "Organization",
+                          "name": "Syllium",
+                          "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://res.cloudinary.com/syl-studio/image/upload/w_400,q_60/v1583176980/keystone-syllium-blog/post/5e5d5d111081ec18d0a1cec5.jpg"
+                          }
+                        },
+                        "url": "${this.currentWindowLocation.href}",
+                        "mainEntityOfPage": {
+                          "@type": "WebPage",
+                          "@id": "https://google.com/article"
+                        },
+                        "datePublished": "${format(post.posted, 'YYYY-MM-DD')}",
+                        "dateCreated": "${format(post.posted, 'YYYY-MM-DD')}",
+                        "dateModified": "${format(post.posted, 'YYYY-MM-DD')}",
+                        "description": "${metaDescription}"
+                      }`}</script>
                     </Head>
                     {post.image ? <img src={post.image.mediumUrl} css={{ width: '100%' }} /> : null}
                     <article css={{ padding: '1em' }}>
