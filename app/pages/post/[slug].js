@@ -263,6 +263,10 @@ class PostPage extends React.Component {
               post.image.mediumUrl = String(post.image.publicUrl).replace('upload/', 'upload/w_864,q_60/');
             }
 
+            if (post.body) {
+              post.body = String(post.body).replace(/(upload\/)([\w,]*)\/?(v[\d]+)/gi, '$1$2,q_60/$3');
+            }
+
             if (post.author && post.author.avatar && post.author.avatar.publicUrl) {
               post.author.avatar.thumbnailUrl = String(post.author.avatar.publicUrl).replace('upload/', 'upload/w_80,c_fill,ar_1:1,g_auto,r_max,q_60/');
             }
