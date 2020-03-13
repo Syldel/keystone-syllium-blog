@@ -285,7 +285,7 @@ class PostPage extends React.Component {
             return (
               <>
                 <Header data={data.allNavItems} />
-                <div css={{ margin: '48px 0' }}>
+                <div css={{ margin: '24px 0' }}>
                   {/* <BackButton href="/" color="hsl(200,20%,50%)" className="mb-3">Accueil</BackButton> */}
                   <div
                     css={{

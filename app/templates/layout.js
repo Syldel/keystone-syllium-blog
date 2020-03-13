@@ -47,6 +47,18 @@ const Layout = ({ children }) => (
         }}
       >
         <a
+          href="https://www.instagram.com/syldel"
+          css={{
+            color: 'hsl(200, 20%, 50%)',
+            fontWeight: 800,
+            textDecoration: 'none',
+            '&:hover': { textDecoration: 'underline' },
+          }}
+        ><img css={{
+          marginRight: '5px'
+        }} src="../images/instagram-glyph-logo.png" alt="instagram" height="14" width="14"/>Follow me on Instagram</a>
+        <br/>
+        <a
           href="https://www.syllium-photography.fr/"
           css={{
             color: 'hsl(200, 20%, 50%)',
