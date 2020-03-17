@@ -8,7 +8,8 @@ const SITEMAP_QUERY = `{
   }
 }`;
 
-const Sitemap = (req, res) => {
+export default async function sitemapFunc(req, res) {
+
   console.log('Sitemap - 1. req.hostname', req.hostname);
   let hostname = req.hostname;
   if (req.headers && req.headers.host) {
@@ -36,23 +37,19 @@ const Sitemap = (req, res) => {
   xml += `<priority>0.8</priority>`;
   xml += `</url>`;
 
-  request(`${requestUrl}admin/api`, SITEMAP_QUERY).then(data => {
-    if (data && data.allPosts) {
-      data.allPosts.forEach(postObj => {
-        xml += `<url>`;
-        xml += `<loc>${siteOrigin}post/${postObj.slug}</loc>`;
-        xml += `<changefreq>monthly</changefreq>`;
-        xml += `<priority>0.8</priority>`;
-        xml += `</url>`;
-      });
-    }
+  const data = await request(`${requestUrl}admin/api`, SITEMAP_QUERY);
+  if (data && data.allPosts) {
+    data.allPosts.forEach(postObj => {
+      xml += `<url>`;
+      xml += `<loc>${siteOrigin}post/${postObj.slug}</loc>`;
+      xml += `<changefreq>monthly</changefreq>`;
+      xml += `<priority>0.8</priority>`;
+      xml += `</url>`;
+    });
+  }
 
-    xml += '</urlset>';
+  xml += '</urlset>';
 
-    res.header('Content-Type', 'application/xml');
-    res.send(xml);
-  });
-
-};
-
-export default Sitemap;
+  res.header('Content-Type', 'application/xml');
+  res.send(xml);
+}
