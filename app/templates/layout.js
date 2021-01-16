@@ -47,7 +47,7 @@ const Layout = ({ children }) => (
         }}
       >
         <a
-          href="https://www.instagram.com/syldel"
+          href="https://www.instagram.com/syllium"
           css={{
             color: 'hsl(200, 20%, 50%)',
             fontWeight: 800,
