@@ -44,7 +44,7 @@
     "graphql-tag": "^2.10.1",
     "isomorphic-unfetch": "^3.0.0",
     "mongodb-backup-4x": "git+https://github.com/phoscur/mongodb-backup.git",
-    "next": "^9.2.2",
+    "next": "^11.1.3",
     "node-fetch": "^2.3.0",
     "react": "^16.13.0",
     "react-apollo": "^3.1.3",
